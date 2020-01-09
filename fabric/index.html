@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.13/jquery.mousewheel.min.js"></script>
+    <title>Document</title>
+    <style>
+    #canvas {
+        border: 1px solid #4682B4;
+    }
+    </style>
+  </head>
+  <body>
+    <canvas id="canvas" height="800" width="1000">你的浏览器不支持canvas</canvas>
+  </body>
+  <script src="./index.js"></script>
+</html>
+
+<!-- <!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+    canvas {
+        border: 1px dashed black;
+    }
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/3.6.0/fabric.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.13/jquery.mousewheel.min.js"></script>
+<script>
+  var canvas;
+ 
+  //是否拖动
+  var panning = false;
+ 
+  window.onload = function() {
+    canvas = new fabric.Canvas('canvas');
+ 
+    var rect1 = new fabric.Rect({top: 50, left: 50, width: 70, height: 70, fill: 'red'});
+    canvas.add(rect1);
+    var rect2 = new fabric.Rect({top: 50, left: 150, width: 70, height: 70, fill: 'red'});
+    canvas.add(rect2);
+    var rect3 = new fabric.Rect({top: 50, left: 250, width: 70, height: 70, fill: 'red'});
+    canvas.add(rect3);
+ 
+    //鼠标按下
+    canvas.on('mouse:down', function (e) {
+        //按住alt键才可拖动画布
+        if(e.e.altKey) {
+          panning = true;
+          canvas.selection = false;
+        }
+    });
+ 
+    //鼠标抬起
+    canvas.on('mouse:up', function (e) {
+        panning = false;
+        canvas.selection = true;
+    });
+ 
+    //鼠标移动
+    canvas.on('mouse:move', function (e) {
+        if (panning && e && e.e) {
+            var delta = new fabric.Point(e.e.movementX, e.e.movementY);
+            canvas.relativePan(delta);
+        }
+    });
+ 
+    //鼠标滚轮监听
+    $(".upper-canvas").mousewheel(function(event) {
+        var zoom = (event.deltaY > 0 ? 0.1 : -0.1) + canvas.getZoom();
+        zoom = Math.max(0.1,zoom); //最小为原来的1/10
+        zoom = Math.min(3,zoom); //最大是原来的3倍
+        var zoomPoint = new fabric.Point(event.pageX, event.pageY);
+        canvas.zoomToPoint(zoomPoint, zoom);
+    });
+  }
+</script>
+</head>
+<body>
+    <canvas id="canvas" width="600" height="160"></canvas>
+</body>
+</html> -->

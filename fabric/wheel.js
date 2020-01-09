@@ -1,89 +1,15 @@
-// https://segmentfault.com/a/1190000017749198
-// http://fabricjs.com/demos/
-// http://fabricjs.com/controls-customization
-
-import { fabric } from "fabric";
-
-const canvas = new fabric.Canvas("canvas");
-fabric.Object.prototype.originX = fabric.Object.prototype.originY = "center";
-
-const bgRect = new fabric.Rect({
-  left: 500, //距离画布左侧的距离，单位是像素
-  top: 400, //距离画布上边的距离
-  fill: "#FDF5E6", //填充的颜色
-  width: 1000, //方形的宽度
-  height: 800, //方形的高度
-  selectable: false,
-  evented: false
-});
-canvas.add(bgRect);
-
-function makeCircle(left, top, line1, line2) {
-  var c = new fabric.Circle({
-    left: left,
-    top: top,
-    strokeWidth: 1,
-    radius: 5,
-    fill: "#fff",
-    stroke: "#666"
-  });
-  c.hasControls = c.hasBorders = false;
-
-  c.line1 = line1; // line终点
-  c.line2 = line2; // line起点
-
-  return c;
-}
-
-function makeLine(coords) {
-  return new fabric.Line(coords, {
-    fill: "red",
-    stroke: "red",
-    strokeWidth: 2,
-    selectable: false,
-    evented: false
-  });
-}
-
-var line1 = makeLine([500, 200, 800, 200]),
-  line2 = makeLine([800, 200, 800, 400]),
-  line3 = makeLine([800, 400, 600, 600]),
-  line4 = makeLine([600, 600, 500, 400]),
-  line5 = makeLine([500, 400, 500, 200]);
-
-canvas.add(line1, line2, line3, line4, line5);
-
-canvas.add(
-  makeCircle(line1.get("x1"), line1.get("y1"), line5, line1),
-  makeCircle(line2.get("x1"), line2.get("y1"), line1, line2),
-  makeCircle(line3.get("x1"), line3.get("y1"), line2, line3),
-  makeCircle(line4.get("x1"), line4.get("y1"), line3, line4),
-  makeCircle(line5.get("x1"), line5.get("y1"), line4, line5)
-);
-
-var rect = new fabric.Rect({
-  left: 150,
-  top: 200,
-  originX: "left",
-  originY: "top",
-  width: 150,
-  height: 120,
-  angle: -10,
-  fill: "rgba(255,0,0,0.5)",
-  transparentCorners: false
-});
-
-canvas.add(rect);
+/**
+ * 1. 按住键盘的 Alt 键时，按下鼠标则可以移动画布
+ * 2. 滚动鼠标滚轮，便会以鼠标位置为中心进行整个画布的放大和缩小（最大放大 3 倍，最小缩小到原来的 1/10）
+ * 
+ * 参考：
+ * * [Fabric.js - 实现鼠标拖动画布、滚轮缩放画布的功能](https://www.hangge.com/blog/cache/detail_1860.html)
+ * * [Fabric.js - 画布视图viewport的自适应（内容自动缩放并居中）](https://www.hangge.com/blog/cache/detail_1861.html)
+ * * [滚轮事件](https://developer.mozilla.org/zh-CN/docs/Web/API/Element/wheel_event)
+ */
 
 //是否拖动
 let panning = false;
-
-canvas.on("object:click", function(e) {
-  var p = e.target;
-  p.line1 && p.line1.set({ x2: p.left, y2: p.top });
-  p.line2 && p.line2.set({ x1: p.left, y1: p.top });
-  canvas.renderAll();
-});
 
 //鼠标按下
 canvas.on("mouse:down", function(option) {
@@ -188,12 +114,9 @@ canvas.on("mouse:move", function(e) {
 })(window, document);
 
 addWheelListener(document.querySelector(".upper-canvas"), () => {
-  var zoom = (event.deltaY > 0 ? 0.1 : -0.1) + canvas.getZoom(); // >0:放大，每次放大缩小0.1倍
-  zoom = Math.max(1, zoom); //最小为原来的1倍，即不缩小
+  var zoom = (event.deltaY > 0 ? 0.1 : -0.1) + canvas.getZoom();  // >0:放大，每次放大缩小0.1倍
+  zoom = Math.max(0.1, zoom); //最小为原来的1/10。 若 zoom = Math.max(1, zoom); 即最小为原来的1倍，即不缩小
   zoom = Math.min(3, zoom); //最大是原来的3倍
-
-  if (zoom === 1 && canvas.getZoom() === 1) return;
-
   var zoomPoint = new fabric.Point(event.pageX, event.pageY);
   canvas.zoomToPoint(zoomPoint, zoom);
 });
