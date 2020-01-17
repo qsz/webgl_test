@@ -209,7 +209,7 @@ if (typeof document !== 'undefined' && typeof window !== 'undefined') {
   window.fabric = fabric;
 }
 
-
+// File: src\mixins\observable.mixin.js
 (function() {
 
   /**
@@ -231,6 +231,7 @@ if (typeof document !== 'undefined' && typeof window !== 'undefined') {
   }
 
   /**
+   * 事件绑定函数，绑定在__eventListeners属性上
    * Observes specified event
    * @deprecated `observe` deprecated since 0.8.34 (use `on` instead)
    * @memberOf fabric.Observable
@@ -260,6 +261,7 @@ if (typeof document !== 'undefined' && typeof window !== 'undefined') {
   }
 
   /**
+   * 将事件对应的方法设置为false， 不再执行
    * Stops event observing for a particular event handler. Calling this method
    * without arguments removes all handlers for all events
    * @deprecated `stopObserving` deprecated since 0.8.34 (use `off` instead)
@@ -294,6 +296,7 @@ if (typeof document !== 'undefined' && typeof window !== 'undefined') {
   }
 
   /**
+   * 执行eventName对应的所有方法
    * Fires event with an optional options object
    * @deprecated `fire` deprecated since 1.0.7 (use `trigger` instead)
    * @memberOf fabric.Observable
@@ -347,6 +350,7 @@ fabric.Collection = {
   _objects: [],
 
   /**
+   * 将
    * Adds objects to collection, Canvas or Group, then renders canvas
    * (if `renderOnAddRemove` is not `false`).
    * in case of Group no changes to bounding box are made.
