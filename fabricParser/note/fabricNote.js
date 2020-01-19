@@ -1959,6 +1959,7 @@ fabric.CommonMethods = {
 
 (function() {
   /**
+   * 拷贝可枚举属性
    * Copies all enumerable properties of one js object to another
    * this does not and cannot compete with generic utils.
    * Does not clone or extend fabric.Object subclasses.
@@ -1977,6 +1978,7 @@ fabric.CommonMethods = {
     if (deep) {
       if (!fabric.isLikelyNode && source instanceof Element) {
         // avoid cloning deep images, canvases,
+        // 如果不是node环境并且是Element对象，则直接赋值
         destination = source;
       }
       else if (source instanceof Array) {
@@ -2009,6 +2011,7 @@ fabric.CommonMethods = {
   }
 
   /**
+   * 拷贝到空对象
    * Creates an empty object and copies all enumerable properties of another object to it
    * @memberOf fabric.util.object
    * TODO: this function return an empty object if you try to clone null
@@ -2024,6 +2027,7 @@ fabric.CommonMethods = {
     extend: extend,
     clone: clone
   };
+  // fabric.util上拥有fabric.Observable的属性
   fabric.util.object.extend(fabric.util, fabric.Observable);
 })();
 
@@ -2381,6 +2385,7 @@ fabric.CommonMethods = {
   var _slice = Array.prototype.slice;
 
   /**
+   * 根据元素id获取html元素
    * Takes id and returns an element with that id (if one exists in a document)
    * @memberOf fabric.util
    * @param {String|HTMLElement} id
@@ -2397,7 +2402,7 @@ fabric.CommonMethods = {
        * @param {Object} arrayLike
        * @return {Array}
        */
-      toArray = function(arrayLike) {
+      toArray = function(arrayLike) { // 将类数组转化为数组
         return _slice.call(arrayLike, 0);
       };
 
@@ -2417,6 +2422,7 @@ fabric.CommonMethods = {
   }
 
   /**
+   * 创建元素
    * Creates specified element with specified attributes
    * @memberOf fabric.util
    * @param {String} tagName Type of an element to create
@@ -2440,6 +2446,7 @@ fabric.CommonMethods = {
   }
 
   /**
+   * 给元素加classname
    * Adds class to an element
    * @memberOf fabric.util
    * @param {HTMLElement} element Element to add class to
@@ -2452,6 +2459,8 @@ fabric.CommonMethods = {
   }
 
   /**
+   * wrapper替换element，并把element添加到wrapper的子节点中
+   * 如果element有父节点，则用wrapper替换element
    * Wraps element with another element
    * @memberOf fabric.util
    * @param {HTMLElement} element Element to wrap
@@ -2471,6 +2480,7 @@ fabric.CommonMethods = {
   }
 
   /**
+   * 获取元素向右和向下滚动过的像素数，返回{ left: left, top: top }
    * Returns element scroll offsets
    * @memberOf fabric.util
    * @param {HTMLElement} element Element to operate on
@@ -2512,6 +2522,7 @@ fabric.CommonMethods = {
   }
 
   /**
+   * 获取元素的偏移量，返回对象{ left, top }
    * Returns offset for a given element
    * @function
    * @memberOf fabric.util
@@ -2553,6 +2564,7 @@ fabric.CommonMethods = {
   }
 
   /**
+   * 获取元素样式
    * Returns style attribute value of a given element
    * @memberOf fabric.util
    * @param {HTMLElement} element Element to get style attribute for
@@ -2589,6 +2601,7 @@ fabric.CommonMethods = {
                 : '';
 
     /**
+     * 使元素不能被选中
      * Makes element unselectable
      * @memberOf fabric.util
      * @param {HTMLElement} element Element to make unselectable
@@ -2633,6 +2646,7 @@ fabric.CommonMethods = {
   (function() {
 
     /**
+     * 将带有给定url的script元素插入到文档中;当脚本完成加载时调用回调
      * Inserts a script element with a given url into a document; invokes callback, when that script is finished loading
      * @memberOf fabric.util
      * @param {String} url URL of a script to load

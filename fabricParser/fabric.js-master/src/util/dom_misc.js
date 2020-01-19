@@ -19,7 +19,7 @@
        * @param {Object} arrayLike
        * @return {Array}
        */
-      toArray = function(arrayLike) {
+      toArray = function(arrayLike) { // 将类数组转化为数组
         return _slice.call(arrayLike, 0);
       };
 
@@ -211,6 +211,7 @@
                 : '';
 
     /**
+     * 使元素不能被选中
      * Makes element unselectable
      * @memberOf fabric.util
      * @param {HTMLElement} element Element to make unselectable
