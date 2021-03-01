@@ -21,6 +21,6 @@
   "dependencies": {
     "@svgdotjs/svg.js": "^3.0.16",
     "fabric": "^3.6.0",
-    "three": "^0.111.0"
+    "three": "^0.125.0"
   }
 }
